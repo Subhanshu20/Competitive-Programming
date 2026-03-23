@@ -12,11 +12,7 @@ int32_t main()
 
     vector<int>v(n);
     for(auto &x:v) cin>>x;
-     int res=v[0];
-     int r=1000000000000000000LL;
-     if(res!=0)
-     r=1000000000000000000LL/res;
-     bool flag=true;
+   
     for(int i=1;i<n;i++)
     {   
        if(v[i]==0||v[i]<=r)
