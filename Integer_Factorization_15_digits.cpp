@@ -14,7 +14,7 @@
               map<int,int>mpp;
               while(n%2==0)
               {
-                mpp[2]++;
+                mpp[2]++;c
                 n=n/2;
               }
               for(int i=3;i*i<=n;i+=2)
