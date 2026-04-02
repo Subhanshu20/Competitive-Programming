@@ -14,18 +14,20 @@ int main()
            cin>>n;
            vector<int>v(n);
          for(auto &x : v) cin>>x;
-         int cnt=0;
+         
+        bool sp=true;
          for(int i=n-1;i>0;i--)
-         {
-            for(int j=i-1;j>=0;j--)
-            {
-                if(v[j]>v[i]){
-                    swap(v[j],v[i]);
-                    cnt++;
+         { 
+                if(v[i]>=v[i-1]){
+                    sp=false;
+                    break;
+
                 }
+                 
             }
-         }
-         if(cnt>(n*n-1)/2-1) cout<<"NO"<<'\n';
+            
+         
+         if(sp) cout<<"NO"<<'\n';
          else cout<<"YES"<<'\n';
     }
     return 0;
