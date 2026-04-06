@@ -10,32 +10,37 @@ int32_t main()
     cin >> t;
     while (t--)
     {
-       int r,c;
-       cin>>r>>c;
-       vector<vector<int>>v(r,vector<int>(c));
-       for(int i=0;i<r;i++)
-       {
-        for(int j=0;j<c;j++)
+        int n,m;
+        cin>>n>>m;
+        vector<vector<int>>v(n,vector<int>(m));
+        for(int i=0;i<n;i++)
         {
-            int x;
-            cin>>x;
-            v[i][j]=x;
-        }
-       }
-       int sum=0;
-       for(int i=0;i<r-1;i++)
-       {
-        for(int j=i+1;j<r;j++)
-       
-        {
-            for(int k=0;k<c;k++)
+            for(int j=0;j<m;j++)
             {
-                sum+=abs(v[i][k]-v[j][k]);
+               cin>>v[i][j];
             }
         }
-       }
+        vector<vector<int>>c(m);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+               c[j].push_back(v[i][j]);
+            }
+        }
+        int res=0;
+        for(int i=0;i<m;i++)
+        {  sort(c[i].begin(),c[i].end());
+            for(int j=0;j<n;j++)
+            {
+                res+=(c[i][j]*j)-(c[i][j]*(n-1-j));
+            }
 
-       cout<<sum<<'\n';
+    
+        }
+       
+        cout<<res<<'\n';
+
     }
     return 0;
 }
