@@ -1,36 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
-int lb(vector<int>&psum,int x)
+#define int long long
+int sbs(vector<int>&v,int num,int low,int r1,int r2)
 {
-   
-    int low=0;
-    int high=psum.size();
-    
+ 
+    int high=v.size()-1;
+    int res=-1;
     while(low<=high)
     {
         int mid=low+(high-low)/2;
-        if(psum[mid]<x) low=mid+1;
-        else high=mid-1;
+        if(num+v[mid]>=r1&&num+v[mid]<=r2)
+        {
+            res=mid;
+            high=mid-1;
+        }
+        else if(num+v[mid]<r1) low=mid+1;
+        else if(num+v[mid]>r2) high=mid-1;
+       
 
     }
-    return low;
+    return res;
 }
-int ub(vector<int>&psum,int x)
+int hbs(vector<int>&v,int num,int low,int r1,int r2)
 {
-   
-    int low=0;
-    int high=psum.size();
-    
+ 
+    int high=v.size()-1;
+    int res=-1;
     while(low<=high)
     {
         int mid=low+(high-low)/2;
-        if(psum[mid]<=x) low=mid+1;
-        else high=mid-1;
+        if(num+v[mid]>=r1&&num+v[mid]<=r2)
+        {
+            res=mid;
+            low=mid+1;
+        }
+        else if(num+v[mid]<r1) low=mid+1;
+        else if(num+v[mid]>r2) high=mid-1;
+       
 
     }
-    return high;
+    return res;
 }
-int main()
+int32_t main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -43,35 +54,25 @@ int main()
         cin>>n>>l>>r;
         vector<int>v(n);
         for(auto &it:v) cin>>it;
-        vector<int>psum(n);
-        psum[0]=0;
+       
         sort(v.begin(),v.end());
 
-        for(int i=1;i<n;i++)
+       int cnt=0;
+
+        for(int i=0;i<n;i++)
         {
-            psum[i]=(psum[i-1]+(v[i]-v[i-1]));
+           int num=v[i];
+           int lindex=sbs(v,num,i+1,l,r);
+           int hindex=hbs(v,num,i+1,l,r);
+           if(lindex!=-1&&hindex!=-1)
+           {
+            cnt+=(hindex-lindex+1);
+           }
 
-        }
-        int ans=0;
-
-        for(int i=n-1;i>0;i--)
-        {
-            int sum=v[i]+v[0];
-            int st=(sum<r)?abs(l-sum):-1;
-            int en=r-sum;
-            int idx1=(st!=-1)?lb(psum,st):-1;
-            if(sum+psum[idx1]>r||sum+psum[idx1]<l) idx1=-1;
-            int idx2=(st!=-1)?ub(psum,en):-1;
-            if(sum+psum[idx2]>r||sum+psum[idx2]<l) idx2=-1;
-
-            if(st!=-1&&idx1!=-1){
-            ans+=(idx2-idx1+1);
-            if(idx1<=i&&idx2>=i) ans--;
-            }
 
         }
         
-        cout<<ans<<'\n';
+        cout<<cnt<<'\n';
 
     }
     return 0;
