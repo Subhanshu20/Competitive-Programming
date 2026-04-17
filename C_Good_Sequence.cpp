@@ -6,16 +6,25 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    
-        unordered_set<string>s;
-        s.insert("a");
-        s.insert("b");
-        s.insert("c");
-        s.insert("b");
-    
-     for(auto it:s)
+    int t;
+    cin >> t;
+    map<int,int>mp;
+    while (t--)
     {
-        cout<<it<<'\n';
+        int x;
+        cin>>x;
+        mp[x]++;
+      
     }
+    int res=0;
+    for(auto it:mp)
+    {
+       
+        res+=(it.second<it.first)?it.second:it.second-it.first;
+       
+    }
+    cout<<res<<'\n';
     return 0;
-}
+} 
+
+
