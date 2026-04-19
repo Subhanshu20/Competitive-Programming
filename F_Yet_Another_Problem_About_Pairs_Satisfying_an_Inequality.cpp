@@ -2,6 +2,19 @@
 using namespace std;
 
 #define int long long
+
+int lb(vector<int>&v,int x)
+{
+    int low=0;
+    int high=v.size()-1;
+    while(low<=high)
+    {
+        int mid=low+(high-low)/2;
+        if(v[mid]<x) low=mid+1;
+        else high=mid-1;
+    }
+    return low;
+}
 int32_t main()
 {
     ios_base::sync_with_stdio(false);
@@ -20,7 +33,7 @@ int32_t main()
           int val;
           cin>>val;
           if(i<=val) continue;
-          res+=lower_bound(v.begin(),v.end(),val)-v.begin();
+          res+=(lb(v,val));
           v.push_back(i);
          
         }
