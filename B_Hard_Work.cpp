@@ -53,9 +53,6 @@
         else cout<<"ACC";
         cout<<'\n';
         }
-        
-        
-
 
         return 0;
     }
